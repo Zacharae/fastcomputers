@@ -1,8 +1,10 @@
 body {
     padding: 10px;
-}
-
+	}
 p {
     color: navy;
     margin-left: 10px;
-}
+	}
+a {
+	color: midnightblue;
+	}
