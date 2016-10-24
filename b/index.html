@@ -7,10 +7,30 @@
 			background-color: blue;
 			margin: 15px;
 		}
+		a {
+			text-decoration: none;
+			color: pink;
+		}
 	</style>
 </head>
 <body>
 <h2>B</h2>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/hA7lv1SDzno?autoplay=1" frameborder="0" allowfullscreen></iframe>
+<br>
+<button onclick="physics()">Review</button>
+<script type="text/javascript">
+	function physics() {
+		var x;
+		if(confirm("do you like physics?")== true){
+			x = "Y";
+			window.open("http://journals.aps.org/prb/");
+		} else {
+			x = "N"
+		}
+		document.getElementById("prb").innerHTML = x;
+	}
+</script>
+
+ --><p>&#128029;</p>
 </body>
 </html>
