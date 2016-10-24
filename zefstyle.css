@@ -8,3 +8,6 @@ p {
 a {
 	color: midnightblue;
 	}
+a:visited {
+	color: midnightblue;
+}
