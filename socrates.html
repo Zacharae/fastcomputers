@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Socrates Quotes</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			text-align: center;
+		}
+
+		h1 {
+			margin-top: 50px;
+			font-size: 36px;
+			color: #1a1a1a;
+		}
+
+		#quote {
+			font-size: 24px;
+			margin-top: 20px;
+			margin-bottom: 50px;
+			color: #666;
+		}
+
+		#image {
+			max-width: 80%;
+			height: auto;
+			margin-bottom: 20px;
+		}
+	</style>
+</head>
+<body>
+	<h1>Socrates Quotes</h1>
+	<img id="image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Socrates.png/220px-Socrates.png" alt="Socrates">
+	<p id="quote"></p>
+
+	<script>
+		const quotes = [
+			"The only true wisdom is in knowing you know nothing.",
+			"An unexamined life is not worth living.",
+			"Let him who would move the world first move himself.",
+			"To be conscious of being, you need to reclaim consciousness from the mind.",
+			"True wisdom comes to each of us when we realize how little we understand about life, ourselves, and the world around us.",
+			"The unexamined life is not worth living.",
+			"The shortest and surest way to live with honor in the world is to be in reality what we would appear to be.",
+			"Wisdom begins in wonder.",
+			"I know that I am intelligent, because I know that I know nothing.",
+			"He who is not a good servant will not be a good master.",
+			"To be yourself in a world that is constantly trying to make you something else is the greatest accomplishment.",
+			"Know thyself.",
+			"Education is the kindling of a flame, not the filling of a vessel.",
+			"Death may be the greatest of all human blessings.",
+			"The beginning of wisdom is a definition of terms.",
+      "The only true wisdom is in knowing you know nothing.",
+	    "An unexamined life is not worth living.",
+	    "Let him who would move the world first move himself.",
+    	"To be conscious of being, you need to reclaim consciousness from the mind.",
+    	"True wisdom comes to each of us when we realize how little we understand about life, ourselves, and the world around us.",
+	    "The unexamined life is not worth living.",
+	    "The shortest and surest way to live with honor in the world is to be in reality what we would appear to be.",
+	    "Wisdom begins in wonder.",
+	    "I know that I am intelligent, because I know that I know nothing.",
+	    "He who is not a good servant will not be a good master.",
+    	"To be yourself in a world that is constantly trying to make you something else is the greatest accomplishment.",
+    	"Know thyself.",
+    	"Education is the kindling of a flame, not the filling of a vessel.",
+    	"Death may be the greatest of all human blessings.",
+    	"The beginning of wisdom is a definition of terms.",
+    	"The only good is knowledge and the only evil is ignorance.",
+    	"The mind is everything; what you think, you become.",
+	    "He who is not a good servant will not be a good master.",
+    	"It is better to change an opinion than to persist in a wrong one.",
+    	"He who would search for pearls must dive below.",
+    	"To be wronged is nothing, unless you continue to remember it.",
+    	"The only true wisdom is in knowing you know nothing.",
+    	"True knowledge exists in knowing that you know nothing.",
+    	"An honest man is always a child.",
+    	"The unexamined life is not worth living.",
+    	"As for me, all I know is that I know nothing.",
+    	"It is not living that matters, but living rightly.",
+    	"I am the wisest man alive, for I know one thing, and that is that I know nothing.",
+    	"To find yourself, think for yourself.",
+    	"From the deepest desires often come the deadliest hate.",
+    	"Strong minds discuss ideas, average minds discuss events, weak minds discuss people.",
+    	"Let him who would move the world first move himself.",
+    	"To be conscious of being, you need to reclaim consciousness from the mind.",
+    	"The only good is knowledge and the only evil is ignorance.",
+    	"The heaviest penalty for declining to rule is to be ruled by someone inferior to yourself.",
+    	"Be slow to fall into friendship, but when you are in, continue firm and constant.",
+    	"Envy is the ulcer of the soul.",
+    	"The only thing I know is that I know nothing.",
+    	"I cannot teach anybody anything, I can only make them think.",
+    	"Wisdom is the chief element of happiness.",
+    	"I am not an Athenian or a Greek, but a citizen of the world.",
+    	"True wisdom comes to each of us when we realize how little we understand about life, ourselves, and the world around us.",
+    	"By all means, marry. If you get a good wife, you'll become happy; if you get a bad one, you'll become a philosopher.",
+    	"Contentment is natural wealth, luxury is artificial poverty.",
+    	"Prefer knowledge to wealth, for the one is transitory, the other perpetual.",
+    	"The unexamined life is not worth living.",
+    	"Speak so that I may see you.",
+    	"The beginning of wisdom is the definition of terms.",
+    	"Strong minds discuss ideas, average minds discuss events, weak minds discuss people.",
+    	"He who is not a good servant will not be a good master."
+		];
+
+		const image = document.getElementById('image');
+		const quote = document.getElementById('quote');
+
+		function getRandomQuote() {
+			return quotes[Math.floor(Math.random() * quotes.length)];
+		}
+
+		function displayQuote() {
+			quote.innerText = getRandomQuote();
+		}
+
+		image.addEventListener('click', displayQuote);
+	</script>
+</body>
+</html>
