@@ -1,0 +1,143 @@
+
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <title>Cat Picture App</title>
+
+  <style>
+
+    body {
+
+      font-family: Arial, sans-serif;
+
+    }
+
+    header {
+
+      text-align: center;
+
+      background-color: #333;
+
+      color: white;
+
+      padding: 20px;
+
+    }
+
+    main {
+
+      display: flex;
+
+      flex-direction: column;
+
+      align-items: center;
+
+      padding: 20px;
+
+    }
+
+    #cat-image {
+
+      width: 400px;
+
+      height: 400px;
+
+      margin-bottom: 20px;
+
+    }
+
+    #new-picture-button {
+
+      padding: 10px 20px;
+
+      font-size: 16px;
+
+      background-color: #4CAF50;
+
+      color: white;
+
+      border: none;
+
+      border-radius: 5px;
+
+      cursor: pointer;
+
+    }
+
+    #new-picture-button:hover {
+
+      background-color: #3e8e41;
+
+    }
+
+    footer {
+
+      text-align: center;
+
+      background-color: #f2f2f2;
+
+      padding: 20px;
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <header>
+
+    <h1>Cat Picture App</h1>
+
+  </header>
+
+  <main>
+
+    <img id="cat-image">
+
+    <button id="new-picture-button">New Picture</button>
+
+  </main>
+
+  <footer>
+
+    <p>&copy; 2023 ChatGPT</p>
+
+  </footer>
+
+  <script>
+
+    const catImage = document.getElementById('cat-image');
+
+    const newPictureButton = document.getElementById('new-picture-button');
+
+
+    function getCatPicture() {
+
+      fetch('https://api.thecatapi.com/v1/images/search')
+
+        .then(response => response.json())
+
+        .then(data => {
+
+          catImage.src = data[0].url;
+
+        })
+
+        .catch(error => console.error(error));
+
+    }
+
+
+    newPictureButton.addEventListener('click', getCatPicture);
+
+  </script>
+
+</body>
+
+</html>
