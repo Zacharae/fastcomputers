@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Parrot Pictures</title>
+	<style>
+		/* CSS styles */
+		.parrot-image {
+			display: block;
+			margin: auto;
+			width: 50%;
+			height: auto;
+			padding-top: 10px;
+			padding-bottom: 10px;
+		}
+		.button {
+			display: block;
+			margin: auto;
+			padding: 10px;
+			background-color: #4CAF50;
+			color: white;
+			font-size: 16px;
+			border: none;
+			cursor: pointer;
+			border-radius: 8px;
+		}
+	</style>
+</head>
+<body>
+	<!-- HTML content -->
+	<h1>Parrot Pictures</h1>
+	<img class="parrot-image" id="parrot-pic" src="https://picsum.photos/400/300?grayscale" alt="Parrot">
+	<button class="button" onclick="changePic()">Change Picture</button>
+
+	<!-- JavaScript code -->
+	<script>
+		function changePic() {
+			var parrotPic = document.getElementById("parrot-pic");
+			parrotPic.src = "https://picsum.photos/400/300?random=" + Math.random();
+		}
+	</script>
+</body>
+</html>
+<!-- Thank you for visiting my site -->
