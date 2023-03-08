@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Russian Jokes</title>
+	<style>
+		/* CSS styles */
+		.joke-container {
+			display: block;
+			margin: auto;
+			width: 50%;
+			height: auto;
+			padding-top: 10px;
+			padding-bottom: 10px;
+			text-align: center;
+			font-size: 24px;
+			font-family: Arial, sans-serif;
+			border: 1px solid black;
+			border-radius: 8px;
+			background-color: #f2f2f2;
+		}
+		.button {
+			display: block;
+			margin: auto;
+			padding: 10px;
+			background-color: #4CAF50;
+			color: white;
+			font-size: 16px;
+			border: none;
+			cursor: pointer;
+			border-radius: 8px;
+		}
+	</style>
+</head>
+<body>
+	<!-- HTML content -->
+	<h1>Russian Jokes</h1>
+	<div class="joke-container" id="joke-container">
+		Click the button for a new joke!
+	</div>
+	<button class="button" onclick="getJoke()">New Joke</button>
+
+	<!-- JavaScript code -->
+	<script>
+		async function getJoke() {
+			const response = await fetch('https://official-joke-api.appspot.com/random_joke');
+			const data = await response.json();
+			const setup = data.setup;
+			const punchline = data.punchline;
+			const jokeContainer = document.getElementById('joke-container');
+			jokeContainer.innerHTML = '<p>' + setup + '</p><p>' + punchline + '</p>';
+		}
+	</script>
+</body>
+<!-- thank you for visiting my site -->
+</html>
