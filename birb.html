@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Parrot Pictures</title>
+	<title>Bird Pictures</title>
 	<style>
 		/* CSS styles */
 		.image-container {
@@ -31,9 +31,9 @@
 </head>
 <body>
 	<!-- HTML content -->
-	<h1>Parrot Pictures</h1>
+	<h1>Bird Pictures</h1>
 	<div class="image-container" id="image-container">
-		<img class="image" src="https://picsum.photos/id/237/500/500" alt="Parrot">
+		<img class="image" src="https://picsum.photos/id/10/500/500" alt="Bird">
 	</div>
 	<button class="button" onclick="changeImage()">New Image</button>
 
@@ -43,9 +43,11 @@
 			const imageContainer = document.getElementById('image-container');
 			const currentImage = imageContainer.getElementsByTagName('img')[0];
 			const newImage = document.createElement('img');
+			const species = ['parrotlet', 'macaw', 'parakeet', 'african grey', 'conure'];
+			const randomSpecies = species[Math.floor(Math.random() * species.length)];
 			const randomId = Math.floor(Math.random() * 1000);
-			newImage.setAttribute('src', `https://picsum.photos/id/${randomId}/500/500`);
-			newImage.setAttribute('alt', 'Parrot');
+			newImage.setAttribute('src', `https://source.unsplash.com/500x500/?${randomSpecies},bird,parrot`);
+			newImage.setAttribute('alt', 'Bird');
 			newImage.classList.add('image');
 			imageContainer.replaceChild(newImage, currentImage);
 		}
