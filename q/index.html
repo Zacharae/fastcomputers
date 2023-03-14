@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title> QR Code Maker</title>
+    <title>QR MAKER</title>
     <style>
       /* Style for the green header and footer */
       header, footer {
@@ -18,35 +18,28 @@
         padding: 20px;
       }
 
-      /* Style for the QR code container */
-      .qr-code {
-        display: inline-block;
-        padding: 20px;
-        background-color: #ffffff; /* White background color */
-      }
-
       /* Style for the QR code image */
-      .qr-code img {
+      .qr-code {
         display: block;
-        margin: 0 auto;
-        max-width: 100%;
+        margin: 20px auto;
+        max-width: 256px;
       }
     </style>
   </head>
   <body>
     <header>
-      <h1> QR Code Maker</h1>
+      <h1>QR MAKER</h1>
     </header>
     <div class="content">
       <form>
         <label for="url-input">Enter a URL:</label>
         <input type="text" id="url-input" placeholder="https://www.example.com">
-        <button type="button" onclick="generateQRCode()">Make QR Code</button>
+        <button type="button" onclick="generateQRCode()">Generate QR Code</button>
       </form>
-      <div class="qr-code" id="qr-code-container"></div>
+      <img class="qr-code" id="qr-code-image" src="" alt="">
     </div>
     <footer>
-      <p> &#127482;&#127480;.</p>
+      <p hidden>And harm none, do what ye will.</p>
     </footer>
     <script>
       function generateQRCode() {
@@ -57,16 +50,9 @@
           return;
         }
 
-        var qrCodeContainer = document.getElementById("qr-code-container");
-        qrCodeContainer.innerHTML = "";
+        var qrCodeImage = document.getElementById("qr-code-image");
 
-        var qrCode = new QRCode(qrCodeContainer, {
-          text: url,
-          width: 256,
-          height: 256,
-          colorDark: "#2ecc71", // Fun green QR code color
-          colorLight: "#ffffff" // White QR code color
-        });
+        qrCodeImage.src = "https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=" + encodeURIComponent(url);
       }
     </script>
   </body>
