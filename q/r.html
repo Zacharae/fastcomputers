@@ -1,4 +1,52 @@
 <!-- Hi -->
   <p>&#129302;</p>
   
-<p>This is a place where I design robots.</p>
+<p hidden>This is a place where I design robots.</p>
+    <h1>QR Code Reader</h1>
+    <video id="video"></video>
+    <button id="startButton">Start</button>
+    <div id="output"></div>
+
+    <script>
+      // Get references to the video element, start button, and output box
+      const video = document.getElementById('video');
+      const startButton = document.getElementById('startButton');
+      const output = document.getElementById('output');
+
+      // Attach a click event listener to the start button
+      startButton.addEventListener('click', () => {
+        // Create a new instance of the QR code reader
+        const qr = new QRCodeReader();
+
+        // Start the video stream
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+          .then(stream => {
+            video.srcObject = stream;
+            video.play();
+          })
+          .catch(error => {
+            console.error(error);
+          });
+
+        // Attach a listener to the video element to capture the video stream
+        video.addEventListener('play', () => {
+          // Create a canvas element to capture the video frame
+          const canvas = document.createElement('canvas');
+          const context = canvas.getContext('2d');
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+
+          // Continuously capture the video frame and attempt to decode the QR code
+          setInterval(() => {
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+            const code = qr.decodeFromImage(imageData);
+
+            // If a QR code was successfully decoded, display the output in the output box
+            if (code !== null) {
+              output.innerText += code + '\n';
+            }
+          }, 100);
+        });
+      });
+    </script>
