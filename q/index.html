@@ -1,14 +1,28 @@
 <!DOCTYPE html>
-
 <html>
   <head>
-    <title>QR Code</title>
+    <title> QR Code Maker</title>
     <style>
+      /* Style for the green header and footer */
+      header, footer {
+        background-color: #2ecc71; /* Fun green background color */
+        color: #ffffff; /* White text color */
+        text-align: center;
+        padding: 20px;
+      }
+
+      /* Style for the main content container */
+      .content {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
       /* Style for the QR code container */
       .qr-code {
         display: inline-block;
         padding: 20px;
-        background-color: #2ecc71; /*  green background color */
+        background-color: #ffffff; /* White background color */
       }
 
       /* Style for the QR code image */
@@ -20,22 +34,40 @@
     </style>
   </head>
   <body>
-    <div class="qr-code">
-      <script>
-        // JavaScript code to create the QR code
-        var qrCode = new QRCode(document.createElement("div"), {
-          text: "http://fastcomputers.biz", // Change this URL to your desired content
+    <header>
+      <h1> QR Code Maker</h1>
+    </header>
+    <div class="content">
+      <form>
+        <label for="url-input">Enter a URL:</label>
+        <input type="text" id="url-input" placeholder="https://www.example.com">
+        <button type="button" onclick="generateQRCode()">Make QR Code</button>
+      </form>
+      <div class="qr-code" id="qr-code-container"></div>
+    </div>
+    <footer>
+      <p> &#127482;&#127480;.</p>
+    </footer>
+    <script>
+      function generateQRCode() {
+        var urlInput = document.getElementById("url-input");
+        var url = urlInput.value;
+        if (url === "") {
+          alert("Please enter a URL.");
+          return;
+        }
+
+        var qrCodeContainer = document.getElementById("qr-code-container");
+        qrCodeContainer.innerHTML = "";
+
+        var qrCode = new QRCode(qrCodeContainer, {
+          text: url,
           width: 256,
           height: 256,
-          colorDark: "#ffffff", // White QR code color
-          colorLight: "#2ecc71" // Fun green QR code color
+          colorDark: "#2ecc71", // Fun green QR code color
+          colorLight: "#ffffff" // White QR code color
         });
-
-        // Append the QR code image to the container
-        var qrCodeImage = qrCode._el.firstChild;
-        qrCodeImage.style.maxWidth = "100%";
-        document.querySelector(".qr-code").appendChild(qrCodeImage);
-      </script>
-    </div>
+      }
+    </script>
   </body>
 </html>
