@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>QR MAKER</title>
+    <title>QR APP</title>
     <style>
      <style>
       /* Black and white style for the header */
@@ -36,7 +36,17 @@
         margin: 20px auto;
         max-width: 256px;
       }
+     /* Style for the output box */
+      #output {
+        border: 1px solid black;
+        padding: 10px;
+        margin-top: 10px;
+        width: 500px;
+        height: 100px;
+        overflow-y: auto;
+      }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/@zxing/library@0.18.3/esm/index.min.js"></script>
   </head>
   <body>
     <header>
@@ -67,5 +77,44 @@
         qrCodeImage.src = "https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=" + encodeURIComponent(url);
       }
     </script>
+    <h1>QR Code Decoder</h1>
+    <input type="file" accept="image/*" id="inputFile">
+    <button id="decodeButton">Decode</button>
+    <div id="output"></div>
+
+    <script>
+      // Get references to the input file element, decode button, and output box
+      const inputFile = document.getElementById('inputFile');
+      const decodeButton = document.getElementById('decodeButton');
+      const output = document.getElementById('output');
+
+      // Attach a click event listener to the decode button
+      decodeButton.addEventListener('click', () => {
+        // Create a new instance of the QR code reader
+        const codeReader = new ZXing.BrowserQRCodeReader();
+
+        // Read the selected image file
+        const file = inputFile.files[0];
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const image = new Image();
+          image.onload = () => {
+            // Decode the QR code from the image
+            codeReader.decodeFromImage(image)
+              .then(result => {
+                // Display the output in the output box
+                output.innerText += result.text + '\n';
+              })
+              .catch(error => {
+                console.error(error);
+              });
+          };
+          image.src = event.target.result;
+        };
+        reader.readAsDataURL(file);
+      });
+    </script>
+
   </body>
 </html>
+<! All kidding aside, I work here.>
