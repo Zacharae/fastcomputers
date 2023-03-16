@@ -1,92 +1,69 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>AI Chatbot</title>
-</head>
-<body>
-	<div id="chatbot">
-		<div id="messages">
-			<div class="bot-message">
-				<p>Hello, how can I help you?</p>
-			</div>
-		</div>
-		<div id="input">
-			<input type="text" id="input-box" placeholder="Type your message here">
-			<button id="send-btn" onclick="sendMessage()">Send</button>
-		</div>
-	</div>
+  <head>
+    <title>AI Chatbot</title>
+  </head>
+  <body>
+    <div id="chatbot-container">
+      <div id="chatbot-messages"></div>
+      <input id="chatbot-input" type="text" placeholder="Type your message...">
+    </div>
 
-	<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.9.0/dist/tf.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/universal-sentence-encoder@4.2.0/dist/universal-sentence-encoder.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.11.0/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/universal-sentence-encoder@4.0.0/dist/universal-sentence-encoder.min.js"></script>
+    <script>
+      async function startChatbot() {
+        // Load the Universal Sentence Encoder model
+        const model = await tf.loadLayersModel('https://tfhub.dev/google/universal-sentence-encoder/4/model.json');
 
-	<script>
-		const botMessages = document.getElementById('messages');
+        // Get references to HTML elements
+        const messagesDiv = document.getElementById('chatbot-messages');
+        const inputBox = document.getElementById('chatbot-input');
 
-		async function getResponse() {
-			const message = document.getElementById('input-box').value;
-			document.getElementById('input-box').value = '';
+        // Function to send a message and get a response
+        async function sendMessage(message) {
+          // Convert the message to a tensor
+          const tensor = model.embed(message);
 
-			const model = await use.load();
+          // Get a response from the model
+          const response = await model.predict(tensor).array();
 
-			const response = await model.embed([message]).array();
-			const messageEmbedding = response[0];
+          // Find the index of the highest value in the response array
+          const index = response[0].indexOf(Math.max(...response[0]));
 
-			// Add your own messages here
-			const messageEmbeddings = [
-				// "Hello" response
-				tf.tensor1d([0.365558475, -0.732019544, -0.000687688931, ...]),
-				// "How are you?" response
-				tf.tensor1d([-0.645890772, 0.216420472, 0.63576746, ...]),
-				// "What is your name?" response
-				tf.tensor1d([0.64176935, -0.608485639, -0.472926974, ...])
-			];
+          // Get the label corresponding to the index from the model metadata
+          const label = modelMetadata.labels[index];
 
-			const similarities = messageEmbeddings.map(messageEmbedding =>
-				messageEmbedding.dot(messageEmbedding).mul(messageEmbedding.dot(messageEmbedding))
-				.sub(messageEmbedding.dot(messageEmbedding)).sum().arraySync()
-			);
+          // Return the label as the response
+          return label;
+        }
 
-			const mostSimilarIndex = similarities.indexOf(Math.max(...similarities));
+        // Function to add a message to the messages div
+        function addMessage(message, sender) {
+          const messageDiv = document.createElement('div');
+          messageDiv.classList.add('message');
+          messageDiv.classList.add(sender);
+          messageDiv.textContent = message;
+          messagesDiv.appendChild(messageDiv);
+        }
 
-			const responses = [
-				"Hello!",
-				"I'm doing well, thank you!",
-				"My name is AI Chatbot."
-			];
+        // Event listener for the input box
+        inputBox.addEventListener('keydown', async (event) => {
+          if (event.keyCode === 13 && inputBox.value !== '') {
+            // Add the user's message to the messages div
+            addMessage(inputBox.value, 'user');
 
-			addBotMessage(responses[mostSimilarIndex]);
-		}
+            // Get a response from the chatbot and add it to the messages div
+            const response = await sendMessage([inputBox.value]);
+            addMessage(response, 'chatbot');
 
-		function addBotMessage(message) {
-			const messageElement = document.createElement('div');
-			messageElement.classList.add('bot-message');
-			messageElement.innerHTML = `<p>${message}</p>`;
-			botMessages.appendChild(messageElement);
-			botMessages.scrollTop = botMessages.scrollHeight;
-		}
+            // Clear the input box
+            inputBox.value = '';
+          }
+        });
+      }
 
-		function sendMessage() {
-			const message = document.getElementById('input-box').value;
-			if (message) {
-				addUserMessage(message);
-				getResponse();
-			}
-		}
-
-		function addUserMessage(message) {
-			const messageElement = document.createElement('div');
-			messageElement.classList.add('user-message');
-			messageElement.innerHTML = `<p>${message}</p>`;
-			botMessages.appendChild(messageElement);
-			botMessages.scrollTop = botMessages.scrollHeight;
-		}
-
-		document.getElementById('input-box').addEventListener('keyup', function(event) {
-			if (event.keyCode === 13) {
-				event.preventDefault();
-				document.getElementById('send-btn').click();
-			}
-		});
-	</script>
-</body>
+      startChatbot();
+    </script>
+  </body>
 </html>
