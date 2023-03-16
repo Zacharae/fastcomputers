@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Simple Chatbot Example</title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chatter-bot-api@0.7.4/dist/chatter-bot-api.min.js"></script>
+</head>
+<body>
+	<div id="chatbot-container">
+		<div id="chatbot-message-container"></div>
+		<div id="chatbot-input-container">
+			<input type="text" id="chatbot-input" placeholder="Type your message here...">
+			<button id="chatbot-send-button">Send</button>
+		</div>
+	</div>
+	
+	<script>
+		var bot = new ChatterBot();
+		var session = bot.getSession();
+		
+		$('#chatbot-send-button').click(function() {
+			var message = $('#chatbot-input').val();
+			var response = session.think(message);
+			
+			$('#chatbot-message-container').append('<p><strong>You:</strong> ' + message + '</p>');
+			$('#chatbot-message-container').append('<p><strong>Bot:</strong> ' + response + '</p>');
+			$('#chatbot-input').val('');
+		});
+	</script>
+	
+	<style>
+		#chatbot-container {
+			border: 1px solid #ddd;
+			padding: 10px;
+			width: 400px;
+			margin: 0 auto;
+		}
+		
+		#chatbot-message-container {
+			height: 200px;
+			overflow: auto;
+			margin-bottom: 10px;
+		}
+		
+		#chatbot-input {
+			padding: 5px;
+			width: 75%;
+			border: 1px solid #ddd;
+			margin-right: 5px;
+		}
+		
+		#chatbot-send-button {
+			padding: 5px 10px;
+			background-color: #007bff;
+			color: #fff;
+			border: none;
+			cursor: pointer;
+		}
+		
+		#chatbot-send-button:hover {
+			background-color: #0069d9;
+		}
+	</style>
+</body>
+</html>
