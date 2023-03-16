@@ -1,69 +1,40 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>AI Chatbot</title>
-  </head>
-  <body>
-    <div id="chatbot-container">
-      <div id="chatbot-messages"></div>
-      <input id="chatbot-input" type="text" placeholder="Type your message...">
-    </div>
+<html lang="en">
 
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.11.0/dist/tf.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/universal-sentence-encoder@4.0.0/dist/universal-sentence-encoder.min.js"></script>
-    <script>
-      async function startChatbot() {
-        // Load the Universal Sentence Encoder model
-        const model = await tf.loadLayersModel('https://tfhub.dev/google/universal-sentence-encoder/4/model.json');
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Chatbot Demo</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.8.0/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/universal-sentence-encoder@4.2.0/dist/universal-sentence-encoder.min.js"></script>
+  <script>
+    const model = await tf.loadLayersModel('https://storage.googleapis.com/tfjs-models/tfjs/sentiment_cnn_v1/model.json');
 
-        // Get references to HTML elements
-        const messagesDiv = document.getElementById('chatbot-messages');
-        const inputBox = document.getElementById('chatbot-input');
-
-        // Function to send a message and get a response
-        async function sendMessage(message) {
-          // Convert the message to a tensor
-          const tensor = model.embed(message);
-
-          // Get a response from the model
-          const response = await model.predict(tensor).array();
-
-          // Find the index of the highest value in the response array
-          const index = response[0].indexOf(Math.max(...response[0]));
-
-          // Get the label corresponding to the index from the model metadata
-          const label = modelMetadata.labels[index];
-
-          // Return the label as the response
-          return label;
-        }
-
-        // Function to add a message to the messages div
-        function addMessage(message, sender) {
-          const messageDiv = document.createElement('div');
-          messageDiv.classList.add('message');
-          messageDiv.classList.add(sender);
-          messageDiv.textContent = message;
-          messagesDiv.appendChild(messageDiv);
-        }
-
-        // Event listener for the input box
-        inputBox.addEventListener('keydown', async (event) => {
-          if (event.keyCode === 13 && inputBox.value !== '') {
-            // Add the user's message to the messages div
-            addMessage(inputBox.value, 'user');
-
-            // Get a response from the chatbot and add it to the messages div
-            const response = await sendMessage([inputBox.value]);
-            addMessage(response, 'chatbot');
-
-            // Clear the input box
-            inputBox.value = '';
-          }
-        });
+    const bot = {
+      send: async function(message) {
+        const tensor = model
+          .embed([message])
+          .transpose()
+          .expandDims()
+        const prediction = await model.predict(tensor).data();
+        return prediction;
       }
+    }
 
-      startChatbot();
-    </script>
-  </body>
+    async function sendMessage() {
+      const input = document.getElementById("input");
+      const message = input.value;
+      const sentimentScore = await bot.send(message);
+      console.log(sentimentScore);
+      input.value = "";
+    }
+  </script>
+</head>
+
+<body>
+  <h1>AI Chatbot Demo</h1>
+  <input type="text" id="input">
+  <button onclick="sendMessage()">Send</button>
+</body>
+
 </html>
