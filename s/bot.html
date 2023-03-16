@@ -1,34 +1,99 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>AI Chatbot</title>
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/universal-sentence-encoder@4.1.0/embedding.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/qna@0.3.0/dist/qna.js"></script>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			font-size: 16px;
+			background-color: #f2f2f2;
+			margin: 0;
+			padding: 0;
+		}
+		.container {
+			max-width: 600px;
+			margin: 0 auto;
+			padding: 20px;
+			box-sizing: border-box;
+			background-color: #ffffff;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+			border-radius: 10px;
+			position: relative;
+			top: 50%;
+			transform: translateY(-50%);
+		}
+		h1 {
+			text-align: center;
+			font-size: 32px;
+			font-weight: bold;
+			margin-top: 0;
+			margin-bottom: 20px;
+		}
+		label {
+			font-weight: bold;
+			display: block;
+			margin-bottom: 10px;
+		}
+		input[type="text"] {
+			width: 100%;
+			padding: 10px;
+			border: none;
+			border-radius: 5px;
+			background-color: #f2f2f2;
+			margin-bottom: 20px;
+			box-sizing: border-box;
+		}
+		.chatbox {
+			height: 300px;
+			overflow-y: scroll;
+			padding: 10px;
+			background-color: #f9f9f9;
+			border-radius: 5px;
+			border: 1px solid #ccc;
+		}
+		.chat-message {
+			display: block;
+			padding: 10px;
+			margin-bottom: 10px;
+			border-radius: 5px;
+			background-color: #e5e5e5;
+			max-width: 70%;
+		}
+		.bot-message {
+			display: block;
+			padding: 10px;
+			margin-bottom: 10px;
+			border-radius: 5px;
+			background-color: #d1f2eb;
+			max-width: 70%;
+			margin-left: auto;
+			text-align: right;
+		}
+		.text-center {
+			text-align: center;
+		}
+		.spotify {
+			display: block;
+			margin-top: 30px;
+			margin-bottom: 10px;
+		}
+		.spotify img {
+			display: block;
+			margin: 0 auto;
+			max-width: 200px;
+		}
+	</style>
 </head>
 <body>
-	<h1>AI Chatbot</h1>
-	<p>Type your question below and press Enter:</p>
-	<input type="text" id="question" onkeydown="if (event.keyCode == 13) ask()">
-	<div id="answer"></div>
-	<script>
-		async function ask() {
-			const question = document.getElementById("question").value;
-			if (question.trim() === '') {
-				return;
-			}
-			const model = await qna.load();
-			const embeddings = await embed([question]);
-			const answers = await model.findAnswers(embeddings, [question]);
-			const answer = answers[0]?.text || "Sorry, I don't know the answer.";
-			$("#answer").text(answer);
-			document.getElementById("question").value = "";
-		}
-		async function embed(sentences) {
-			const embedding = await embedModel.embed(sentences);
-			return embedding;
-		}
-		const embedModel = await universalSentenceEncoder.load();
-	</script>
-</body>
-</html>
+	<div class="container">
+		<h1>AI Chatbot</h1>
+		<label for="message">Type a message:</label>
+		<input type="text" id="message">
+		<div class="chatbox" id="chatbox"></div>
+	</div>
+	<div class="text-center spotify">
+		<a href="https://open.spotify.com/artist/6dQ8cYwUCaHGUY1CwDSZMM?si=6ObrO6fjQ6mHP4h3f8YsWw"><img src="spotify-logo.png" alt="Spotify"></a>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.12.0
