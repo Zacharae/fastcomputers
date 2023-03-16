@@ -1,64 +1,92 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <title>AI Chatbot</title>
-  </head>
-  <body>
-    <h1>AI Chatbot</h1>
-    <p>Enter your message below:</p>
-    <input type="text" id="chat-input" />
-    <button onclick="getResponse()">Send</button>
-    <ul id="chat-output"></ul>
+<head>
+	<title>AI Chatbot</title>
+</head>
+<body>
+	<div id="chatbot">
+		<div id="messages">
+			<div class="bot-message">
+				<p>Hello, how can I help you?</p>
+			</div>
+		</div>
+		<div id="input">
+			<input type="text" id="input-box" placeholder="Type your message here">
+			<button id="send-btn" onclick="sendMessage()">Send</button>
+		</div>
+	</div>
 
-    <!-- Load TensorFlow.js library -->
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
-    <!-- Load the Universal Sentence Encoder -->
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/universal-sentence-encoder"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.9.0/dist/tf.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/universal-sentence-encoder@4.2.0/dist/universal-sentence-encoder.min.js"></script>
 
-    <script>
-      // Load the Universal Sentence Encoder model
-      async function loadModel() {
-        const model = await use.load();
-        return model;
-      }
+	<script>
+		const botMessages = document.getElementById('messages');
 
-      let model;
-      loadModel().then((loadedModel) => {
-        model = loadedModel;
-        console.log("Model loaded successfully.");
-      });
+		async function getResponse() {
+			const message = document.getElementById('input-box').value;
+			document.getElementById('input-box').value = '';
 
-      // Get response from the AI
-      function getResponse() {
-        const input = document.getElementById("chat-input").value;
+			const model = await use.load();
 
-        if (input === "") return;
+			const response = await model.embed([message]).array();
+			const messageEmbedding = response[0];
 
-        // Encode the input text into a tensor
-        const tensor = model.embed([input]);
+			// Add your own messages here
+			const messageEmbeddings = [
+				// "Hello" response
+				tf.tensor1d([0.365558475, -0.732019544, -0.000687688931, ...]),
+				// "How are you?" response
+				tf.tensor1d([-0.645890772, 0.216420472, 0.63576746, ...]),
+				// "What is your name?" response
+				tf.tensor1d([0.64176935, -0.608485639, -0.472926974, ...])
+			];
 
-        // Get a response from the AI
-        model
-          .embed(["Hello, how can I help you?"])
-          .concat(tensor)
-          .array()
-          .then((embeddings) => {
-            // Compute the cosine similarity between the two embeddings
-            const similarity = embeddings[0].dot(embeddings[1]) / (embeddings[0].norm() * embeddings[1].norm());
-            console.log(similarity);
+			const similarities = messageEmbeddings.map(messageEmbedding =>
+				messageEmbedding.dot(messageEmbedding).mul(messageEmbedding.dot(messageEmbedding))
+				.sub(messageEmbedding.dot(messageEmbedding)).sum().arraySync()
+			);
 
-            // If the similarity is above a certain threshold, assume that the user is asking the same question
-            if (similarity >= 0.5) {
-              document.getElementById("chat-output").innerHTML += "<li>You: " + input + "</li><li>AI: " + "Hello, how can I help you?" + "</li>";
-            } else {
-              document.getElementById("chat-output").innerHTML += "<li>You: " + input + "</li><li>AI: " + "I'm sorry, I don't understand." + "</li>";
-            }
-          });
+			const mostSimilarIndex = similarities.indexOf(Math.max(...similarities));
 
-        // Clear the input field
-        document.getElementById("chat-input").value = "";
-      }
-    </script>
-  </body>
+			const responses = [
+				"Hello!",
+				"I'm doing well, thank you!",
+				"My name is AI Chatbot."
+			];
+
+			addBotMessage(responses[mostSimilarIndex]);
+		}
+
+		function addBotMessage(message) {
+			const messageElement = document.createElement('div');
+			messageElement.classList.add('bot-message');
+			messageElement.innerHTML = `<p>${message}</p>`;
+			botMessages.appendChild(messageElement);
+			botMessages.scrollTop = botMessages.scrollHeight;
+		}
+
+		function sendMessage() {
+			const message = document.getElementById('input-box').value;
+			if (message) {
+				addUserMessage(message);
+				getResponse();
+			}
+		}
+
+		function addUserMessage(message) {
+			const messageElement = document.createElement('div');
+			messageElement.classList.add('user-message');
+			messageElement.innerHTML = `<p>${message}</p>`;
+			botMessages.appendChild(messageElement);
+			botMessages.scrollTop = botMessages.scrollHeight;
+		}
+
+		document.getElementById('input-box').addEventListener('keyup', function(event) {
+			if (event.keyCode === 13) {
+				event.preventDefault();
+				document.getElementById('send-btn').click();
+			}
+		});
+	</script>
+</body>
 </html>
