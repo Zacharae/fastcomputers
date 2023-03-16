@@ -1,40 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+  <head>
+    <title>AI Chatbot</title>
+    <meta charset="utf-8" />
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.13.0/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/universal-sentence-encoder@4.2.0/dist/universal-sentence-encoder.min.js"></script>
+  </head>
+  <body>
+    <div style="text-align:center">
+      <h1>AI Chatbot</h1>
+      <img src="https://via.placeholder.com/150x150" alt="Yoko Ono" />
+    </div>
+    <div style="text-align:center">
+      <label for="user-input">Enter your message:</label>
+      <input type="text" id="user-input" />
+      <button onclick="sendMessage()">Send</button>
+    </div>
+    <div id="chatbot-output" style="text-align:center"></div>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Chatbot Demo</title>
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.8.0/dist/tf.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/universal-sentence-encoder@4.2.0/dist/universal-sentence-encoder.min.js"></script>
-  <script>
-    const model = await tf.loadLayersModel('https://storage.googleapis.com/tfjs-models/tfjs/sentiment_cnn_v1/model.json');
-
-    const bot = {
-      send: async function(message) {
-        const tensor = model
-          .embed([message])
-          .transpose()
-          .expandDims()
-        const prediction = await model.predict(tensor).data();
-        return prediction;
+    <script>
+      async function sendMessage() {
+        const userInput = document.getElementById("user-input").value;
+        const model = await universalSentenceEncoder.load();
+        const tensor = model.embed([userInput]);
+        const response = await model.nearestNeighborPrediction(tensor, 3);
+        document.getElementById("chatbot-output").innerHTML = response;
       }
-    }
-
-    async function sendMessage() {
-      const input = document.getElementById("input");
-      const message = input.value;
-      const sentimentScore = await bot.send(message);
-      console.log(sentimentScore);
-      input.value = "";
-    }
-  </script>
-</head>
-
-<body>
-  <h1>AI Chatbot Demo</h1>
-  <input type="text" id="input">
-  <button onclick="sendMessage()">Send</button>
-</body>
-
+    </script>
+  </body>
 </html>
