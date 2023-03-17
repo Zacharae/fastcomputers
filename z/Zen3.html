@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Zen Webpage</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			text-align: center;
+			background-color: #111;
+			color: #FFF;
+		}
+
+		h1 {
+			font-size: 3rem;
+			margin-top: 2rem;
+			margin-bottom: 1rem;
+			color: #FFF;
+		}
+
+		p {
+			font-size: 1.5rem;
+			margin-bottom: 1rem;
+			color: #DDD;
+		}
+
+		button {
+			font-size: 1.5rem;
+			padding: 0.5rem 1rem;
+			background-color: #FFF;
+			color: #111;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			margin-top: 2rem;
+		}
+
+		button:hover {
+			background-color: #DDD;
+		}
+	</style>
+	<script>
+		const quotes = [
+			"The journey of a thousand miles begins with one step. - Lao Tzu",
+			"A flower does not think of competing with the flower next to it. It just blooms. - Zen Shin",
+			"In the midst of chaos, there is also opportunity. - Sun Tzu",
+			"The only way to do great work is to love what you do. - Steve Jobs",
+			"The quieter you become, the more you are able to hear. - Rumi",
+			"Let go of your attachment to being right, and suddenly your mind is more open. - Ralph Marston",
+			"Be like water making its way through cracks. Do not be assertive, but adjust to the object, and you shall find a way around or through it. - Bruce Lee",
+			"An investment in knowledge pays the best interest. - Benjamin Franklin",
+			"Empty your mind, be formless, shapeless — like water. Now you put water in a cup, it becomes the cup; You put water into a bottle it becomes the bottle; You put it in a teapot it becomes the teapot. Now water can flow or it can crash. Be water, my friend. - Bruce Lee",
+			"Everything has beauty, but not everyone sees it. - Confucius",
+			"Your work is to discover your world and then with all your heart give yourself to it. - Buddha",
+			"Peace comes from within. Do not seek it without. - Buddha"
+		];
+
+		function displayRandomQuote() {
+			const randomIndex = Math.floor(Math.random() * quotes.length);
+			alert(quotes[randomIndex]);
+		}
+	</script>
+</head>
+<body>
+	<h1>Zen Webpage</h1>
+	<p>Take a deep breath and find your inner peace.</p>
+	<button onclick="displayRandomQuote()">Click for Zen Quote</button>
+</body>
+</html>
