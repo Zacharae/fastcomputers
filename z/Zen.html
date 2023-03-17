@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Zen Circle Drawer</title>
+	<style>
+		body {
+			background-color: black;
+			margin: 0;
+			padding: 0;
+			height: 100vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		canvas {
+			border: 1px solid white;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="canvas"></canvas>
+	<script>
+		const canvas = document.getElementById("canvas");
+		const ctx = canvas.getContext("2d");
+		const radius = Math.min(canvas.width, canvas.height) * 0.4;
+		ctx.translate(canvas.width / 2, canvas.height / 2);
+		ctx.lineWidth = 4;
+		ctx.strokeStyle = "white";
+		ctx.fillStyle = "black";
+		ctx.beginPath();
+		for (let angle = 0; angle < 2 * Math.PI; angle += 0.01) {
+			const x = radius * Math.cos(angle);
+			const y = radius * Math.sin(angle);
+			ctx.lineTo(x, y);
+		}
+		ctx.closePath();
+		ctx.fill();
+		ctx.stroke();
+	</script>
+</body>
+</html>
