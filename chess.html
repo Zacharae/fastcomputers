@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Checkers Game</title>
+	<style>
+		/* Board styles */
+		.board {display:grid;grid-template-columns:repeat(8, 50px);grid-template-rows:repeat(8, 50px);width:400px;height:400px;background:#F2D58B;border:2px solid #000}
+
+		/* Square styles */
+		.square {display:flex;align-items:center;justify-content:center;font-size:30px;color:#FFC107}
+
+		/* Piece styles */
+		.piece {width:40px;height:40px;border-radius:50%;box-shadow:0 0 10px #000;cursor:pointer;position:relative;z-index:1;background:#FFF}
+		.red {background:#F44336}
+		.black {background:#000;color:#FFF}
+	</style>
+</head>
+<body>
+	<div class="board">
+		{% for row in range(8) %}
+			{% for col in range(8) %}
+				{% if (row+col)%2 == 0 %}
+					<div class="square"></div>
+				{% else %}
+					{% if (row >= 0 and row <= 2) or (row >= 5 and row <= 7) %}
+						<div class="square"><div class="piece {% if row >= 5 %}red{% else %}black{% endif %}" data-row="{{ row }}" data-col="{{ col }}"></div></div>
+					{% else %}
+						<div class="square"></div>
+					{% endif %}
+				{% endif %}
+			{% endfor %}
+		{% endfor %}
+	</div>
+	<script src="game.js"></script>
+</body>
+</html>
