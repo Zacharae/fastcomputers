@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Stick Figure Animation</title>
+  <style>canvas{border:1px solid black}</style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  
+  <script>
+    var c = document.getElementById("canvas"),
+        ctx = c.getContext("2d"),
+        v = [[100,50],[120,70],[120,90],[100,110],[80,90],[80,70],[90,60],[110,60]],
+        stepSize = 5,
+        stepDir = 1,
+        stepCount = 0;
+    setInterval(function() {
+      if (stepCount==10) {stepDir=-stepDir; stepCount=0} else {stepCount++}
+      v[1][0] += stepSize * stepDir;
+      v[4][0] += stepSize * -stepDir;
+      drawStickFigure(v);
+    }, 100);
+
+    function drawStickFigure(v) {
+      ctx.clearRect(0,0,c.width,c.height);
+      ctx.lineWidth=2;
+      var tx = (v[0][0]+v[v.length-1][0])/2,
+          ty = (v[0][1]+v[v.length-1][1])/2,
+          s = Math.sin(stepCount*2*Math.PI/10),
+          a = s*10;
+      ctx.beginPath();
+      ctx.arc(tx,ty-10,10,0,2*Math.PI);
+      ctx.moveTo(tx,ty);
+      ctx.lineTo(tx,ty+40);
+      ctx.lineTo(tx-20,ty+50);
+      ctx.moveTo(tx,ty+40);
+      ctx.lineTo(tx+20,ty+50);
+      ctx.moveTo(tx,ty+10);
+      ctx.lineTo(tx-10,ty+20);
+      ctx.lineTo(tx+10,ty+20);
+      ctx.moveTo(tx-5,ty-5);
+      ctx.arc(tx-5,ty-5,2,0,2*Math.PI);
+      ctx.moveTo(tx+5,ty-5);
+      ctx.arc(tx+5,ty-5,2,0,2*Math.PI);
+      ctx.moveTo(tx-5,ty+5);
+      ctx.lineTo(tx+5,ty+5);
+      ctx.moveTo(v[1][0],v[1][1]);
+      ctx.lineTo(v[2][0],v[2][1]);
+      ctx.moveTo(v[5][0],v[5][1]);
+      ctx.lineTo(v[6][0],v[6][1]);
+      ctx.moveTo(tx-10,ty+20);
+      ctx.lineTo(tx-10+a,ty+30);
+      ctx.moveTo(tx+10,ty+20);
+      ctx.lineTo(tx+10-a,ty+30);
+      ctx.stroke();
+    }
+  </script>
+</body>
+</html>
