@@ -23,7 +23,9 @@
 					<div class="square"></div>
 				{% else %}
 					{% if (row >= 0 and row <= 2) or (row >= 5 and row <= 7) %}
-						<div class="square"><div class="piece {% if row >= 5 %}red{% else %}black{% endif %}" data-row="{{ row }}" data-col="{{ col }}"></div></div>
+						<div class="square">
+							<div class="piece {% if row >= 5 %}red{% else %}black{% endif %}" data-row="{{ row }}" data-col="{{ col }}"></div>
+						</div>
 					{% else %}
 						<div class="square"></div>
 					{% endif %}
