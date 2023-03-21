@@ -1,72 +1,79 @@
-/* Set background color to a light purple */
+/* Set background color to a dark grey */
 body {
-  background-color: #d8c8ff;
+  background-color: #292929;
+  color: #f2f2f2;
+  font-family: 'Roboto', sans-serif;
 }
 
-/* Add a darker purple border to the header */
+/* Add a subtle gradient to the header background */
 header {
-  border-bottom: 5px solid #6b5b95;
+  background: linear-gradient(to right, #4b4b4b, #292929);
 }
 
 /* Set the font and color for the main heading */
 h1 {
   font-family: 'Montserrat', sans-serif;
   font-size: 3rem;
-  color: #6b5b95;
+  color: #fff;
+  text-align: center;
 }
 
-/* Style the navigation links with a purple background and white text */
+/* Style the navigation links with a lighter grey background and white text */
 nav a {
   display: block;
   padding: 1rem;
-  background-color: #6b5b95;
-  color: #fff;
+  background-color: #4b4b4b;
+  color: #f2f2f2;
   text-decoration: none;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 1.2rem;
+  text-align: center;
 }
 
-/* Style the links when hovered over to show a lighter purple background */
+/* Style the links when hovered over to show a lighter grey background */
 nav a:hover {
-  background-color: #a7a1cc;
+  background-color: #606060;
 }
 
-/* Style the section headings with a darker purple and a larger font */
+/* Style the section headings with a darker grey and a larger font */
 section h2 {
   font-family: 'Montserrat', sans-serif;
   font-size: 2.5rem;
-  color: #3d315b;
-  border-left: 5px solid #6b5b95;
+  color: #f2f2f2;
+  border-left: 5px solid #fff;
   padding-left: 1rem;
 }
 
-/* Style the section descriptions with a smaller font and a lighter purple */
+/* Style the section descriptions with a smaller font and a lighter grey */
 section p {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 1.2rem;
   color: #a7a1cc;
 }
 
-/* Style the "Start Studying" links with a purple background and white text */
+/* Style the "Start Studying" links with a light green background and white text */
 section a {
   display: inline-block;
   padding: 0.5rem 1rem;
   margin-top: 1rem;
-  background-color: #6b5b95;
-  color: #fff;
+  background-color: #5dbb63;
+  color: #f2f2f2;
   text-decoration: none;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 1.2rem;
 }
 
-/* Style the "Start Studying" links when hovered over to show a lighter purple background */
+/* Style the "Start Studying" links when hovered over to show a lighter green background */
 section a:hover {
-  background-color: #a7a1cc;
+  background-color: #6fd373;
 }
 
 /* Set the font and color for the footer text */
 footer {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 1rem;
   color: #a7a1cc;
+  text-align: center;
+  padding: 1rem;
+  background-color: #4b4b4b;
 }
