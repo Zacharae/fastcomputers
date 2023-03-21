@@ -1,153 +1,154 @@
-/* Set background color to a dark grey */
+/* Global Styles */
+
+* {
+  box-sizing: border-box;
+}
+
 body {
-  background-color: #292929;
-  color: #f2f2f2;
-  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
 }
 
-/* Add a subtle gradient to the header background */
-header {
-  background: linear-gradient(to right, #4b4b4b, #292929);
-}
+/* Header Styles */
 
-/* Set the font and color for the main heading */
-h1 {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 3rem;
-  color: #fff;
-  text-align: center;
-}
-
-/* Style the navigation links with a lighter grey background and white text */
-nav a {
-  display: block;
-  padding: 1rem;
-  background-color: #4b4b4b;
-  color: #f2f2f2;
-  text-decoration: none;
-  font-family: 'Roboto', sans-serif;
-  font-size: 1.2rem;
-  text-align: center;
-}
-
-/* Style the links when hovered over to show a lighter grey background */
-nav a:hover {
-  background-color: #606060;
-}
-
-/* Style the section headings with a darker grey and a larger font */
-section h2 {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 2.5rem;
-  color: #f2f2f2;
-  border-left: 5px solid #fff;
-  padding-left: 1rem;
-}
-
-/* Style the section descriptions with a smaller font and a lighter grey */
-section p {
-  font-family: 'Roboto', sans-serif;
-  font-size: 1.2rem;
-  color: #a7a1cc;
-}
-
-/* Style the "Start Studying" links with a light green background and white text */
-section a {
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  margin-top: 1rem;
-  background-color: #5dbb63;
-  color: #f2f2f2;
-  text-decoration: none;
-  font-family: 'Roboto', sans-serif;
-  font-size: 1.2rem;
-}
-
-/* Style the "Start Studying" links when hovered over to show a lighter green background */
-section a:hover {
-  background-color: #6fd373;
-}
-
-/* Set the font and color for the footer text */
-footer {
-  font-family: 'Roboto', sans-serif;
-  font-size: 1rem;
-  color: #a7a1cc;
-  text-align: center;
-  padding: 1rem;
-  background-color: #4b4b4b;
-}
-/* Floating Header */
 header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 9999;
+  height: 60px;
   background-color: #fff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
+  z-index: 999;
 }
 
-header nav {
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
+  height: 100%;
 }
 
-header h1 {
-  font-size: 2rem;
+.logo {
   font-weight: bold;
-  margin: 0;
+  font-size: 24px;
 }
 
-header ul {
-  display: flex;
+nav {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
+  z-index: 998;
+  display: none;
+}
+
+nav ul {
   list-style: none;
   margin: 0;
   padding: 0;
-}
-
-header ul li {
-  margin-left: 1.5rem;
-}
-
-header ul li a {
-  color: #555;
-  text-decoration: none;
-  font-weight: bold;
-  text-transform: uppercase;
-  transition: all 0.3s ease;
-}
-
-header ul li a:hover {
-  color: #000;
-}
-
-/* Jumbotron Appearance Kit */
-.jumbotron {
-  background-image: url("https://example.com/bg-image.jpg");
-  background-size: cover;
-  background-position: center;
-  height: 500px;
   display: flex;
-  align-items: center;
+}
+
+nav ul li {
+  position: relative;
+  flex-grow: 1;
+}
+
+nav ul li a {
+  display: block;
+  padding: 20px;
+  color: #333;
+  font-size: 18px;
+  text-align: center;
+  text-decoration: none;
+}
+
+nav ul li:hover > ul {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+nav ul li ul {
+  display: none;
+}
+
+nav ul li ul li {
+  width: 100%;
+}
+
+nav ul li ul li a {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #333;
+}
+
+.nav-icon {
+  display: none;
+  font-size: 32px;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 800px) {
+  .container {
+    justify-content: center;
+  }
+  
+  nav {
+    position: static;
+    display: none;
+  }
+  
+  nav ul {
+    flex-direction: column;
+  }
+  
+  nav ul li {
+    display: inline-block;
+  }
+  
+  .nav-icon {
+    display: block;
+  }
+  
+  .nav-icon:hover {
+    color: #999;
+  }
+  
+  #nav:checked ~ nav {
+    display: block;
+  }
+  
+  #nav:checked ~ .nav-icon:before {
+    content: "\f00d";
+  }
+  
+  #nav:not(:checked) ~ .nav-icon:before {
+    content: "\f0c9";
+  }
+}
+
+/* Jumbotron Styles */
+
+.jumbotron {
+  background-image: url('https://images.unsplash.com/photo-1579112718353-ef44f7c90156?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+  background-size: cover;
+  background-position: center center;
+  height: 400px;
+  display: flex;
   justify-content: center;
+  align-items: center;
+  color: #fff;
 }
 
-.jumbotron h2 {
-  font-size: 3rem;
-  color: #fff;
-  text-align: center;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-.jumbotron p {
-  font-size: 1.5rem;
-  color: #fff;
-  text-align: center;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-  margin-top: 1rem;
-  max-width: 800px;
-  line-height: 1.5;
-}
