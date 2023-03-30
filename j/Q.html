@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My Website</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<style>
+		/* some basic styling for the anchor links */
+		a {
+			display: block;
+			margin: 10px;
+			font-size: 24px;
+			text-decoration: none;
+			color: #333;
+			padding: 10px;
+			border: 1px solid #333;
+		}
+	</style>
+	<script>
+		$(document).ready(function() {
+			// add smooth scrolling to all anchor links
+			$('a[href^="#"]').on('click', function(event) {
+				var target = $(this.getAttribute('href'));
+				if (target.length) {
+					event.preventDefault();
+					$('html, body').stop().animate({
+						scrollTop: target.offset().top
+					}, 1000);
+				}
+			});
+		});
+	</script>
+</head>
+<body>
+	<a href="#section1">Go to Section 1</a>
+	<a href="#section2">Go to Section 2</a>
+	<a href="#section3">Go to Section 3</a>
+	<div style="height: 1000px;"></div>
+	<div id="section1" style="height: 500px; background-color: #f1c40f;">Section 1</div>
+	<div style="height: 1000px;"></div>
+	<div id="section2" style="height: 500px; background-color: #3498db;">Section 2</div>
+	<div style="height: 1000px;"></div>
+	<div id="section3" style="height: 500px; background-color: #e74c3c;">Section 3</div>
+	<div style="height: 1000px;"></div>
+</body>
+</html>
